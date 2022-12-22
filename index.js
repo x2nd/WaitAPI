@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const port = process.env.PORT || 3001;
 
 const sleep = (m) => {
   return new Promise((resolve) => setTimeout(resolve, m));
@@ -21,5 +22,4 @@ app.get('/api/wait', async(req, res) => {
 });
 
 // サーバ起動
-const PORT= 80;
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.listen(port, () => console.log(`Listening on port ${port}`));
