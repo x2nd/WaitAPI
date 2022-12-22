@@ -1,7 +1,9 @@
 const express = require('express');
-const { setTimeout } = require('timers/promises');
-
 const app = express();
+
+const sleep = (m) => {
+  return new Promise((resolve) => setTimeout(resolve, m));
+};
 
 app.get('/api/wait', async(req, res) => {
   const ret = {
@@ -10,7 +12,7 @@ app.get('/api/wait', async(req, res) => {
   }
   let sec = (req.query.sec || 0);
   if (sec > 300) sec = 1; // 300秒以上は無効
-  await setTimeout(sec * 1000);
+  await sleep(sec * 1000);
 
   ret['waitSeconds'] = sec;
   ret['endTime'] = new Date().toLocaleString('ja');
