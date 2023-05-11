@@ -27,6 +27,21 @@ app.get('/api/wait', async(req, res) => {
   res.json(ret);
 });
 
+app.post('/api/wait', async(req, res) => {
+  const ret = {
+    startTime: new Date().toLocaleString('ja'),
+    message: req.body.message
+  }
+  let sec = (req.body.sec || 0);
+  if (sec > 300) sec = 1; // 300秒以上は無効
+  await sleep(sec * 1000);
+
+  ret['waitSeconds'] = sec;
+  ret['endTime'] = new Date().toLocaleString('ja');
+
+  res.json(ret);
+});
+
 app.get('/api/result', async(req, res) => {
   const url = `https://${process.env.HOST}/services/apexrest/result`;
   const sec = parseInt(process.env.WAIT || '0', 10);
