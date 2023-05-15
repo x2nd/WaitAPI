@@ -60,10 +60,15 @@ app.get('/api/result', async(req, res) => {
 
 app.post('/api/send', async(req, res) => {
   const url = `https://${process.env.HOST}/services/apexrest/send`;
-  const sec = parseInt((req.body.To || '00000000000')[8], 10) * 10;
-  process.env.WAIT = sec.toString();
-  console.log('/api/send wait: ' + process.env.WAIT);
-  await sleep(sec * 1000);
+  if (/^080/.test(req.body.To)) {
+    const sec = parseInt((req.body.To || '00000000000')[8], 10) * 10;
+    process.env.WAIT = sec.toString();
+    console.log('/api/send wait: ' + process.env.WAIT);
+    await sleep(sec * 1000);
+  } else {
+    process.env.WAIT = '0';
+    await sleep(sec * 1000);
+  }
 
   request.post({
     uri: url,
