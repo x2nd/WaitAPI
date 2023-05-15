@@ -67,7 +67,7 @@ app.post('/api/send', async(req, res) => {
     await sleep(sec * 1000);
   } else {
     process.env.WAIT = '0';
-    await sleep(sec * 1000);
+    console.log('/api/send wait: ' + process.env.WAIT);
   }
 
   request.post({
