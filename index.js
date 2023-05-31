@@ -54,14 +54,16 @@ app.get('/api/result', async(req, res) => {
     qs: req.query
   }, (err, req, data) => {
     console.log('get statusCode: ' + res1.statusCode);
+    res.writeHead(res1.statusCode, { 'Content-Type': 'application/json' });
     res.write(data);
-    res.status(res1.statusCode).end();
+    res.end();
   });
 });
 
 app.post('/api/send', async(req, res) => {
   const url = `https://${process.env.HOST}/services/apexrest/send`;
   const sec = parseInt((req.body.To || '00000000000')[8], 10) * 20;
+  console.log('input To: ' + req.body.To);
   if (/^080/.test(req.body.To)) {
     process.env.WAIT = sec.toString();
     console.log('/api/send wait: ' + process.env.WAIT);
@@ -82,8 +84,9 @@ app.post('/api/send', async(req, res) => {
     body: qs.stringify(req.body)
   }, (err1, res1, data1) => {
     console.log('get statusCode: ' + res1.statusCode);
+    res.writeHead(res1.statusCode, { 'Content-Type': 'application/json' });
     res.write(data1);
-    res.status(res1.statusCode).end();
+    res.end();
   });
 });
 
