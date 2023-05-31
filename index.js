@@ -53,6 +53,7 @@ app.get('/api/result', async(req, res) => {
     uri: url,
     qs: req.query
   }, (err, req, data) => {
+    console.log('get statusCode: ' + res1.statusCode);
     res.write(data);
     res.status(res1.statusCode).end();
   });
@@ -80,6 +81,7 @@ app.post('/api/send', async(req, res) => {
     },
     body: qs.stringify(req.body)
   }, (err1, res1, data1) => {
+    console.log('get statusCode: ' + res1.statusCode);
     res.write(data1);
     res.status(res1.statusCode).end();
   });
