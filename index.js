@@ -54,7 +54,7 @@ app.get('/api/result', async(req, res) => {
     qs: req.query
   }, (err, req, data) => {
     res.write(data);
-    res.end();
+    res.status(res1.statusCode).end();
   });
 });
 
@@ -70,7 +70,7 @@ app.post('/api/send', async(req, res) => {
       process.env.WAIT = sec.toString();
     }
     process.env.WAIT = '0';
-    console.log('/api/send wait: ' + process.env.WAIT);
+    console.log('/api/result set: ' + process.env.WAIT);
   }
 
   request.post({
@@ -81,7 +81,7 @@ app.post('/api/send', async(req, res) => {
     body: qs.stringify(req.body)
   }, (err1, res1, data1) => {
     res.write(data1);
-    res.end();
+    res.status(res1.statusCode).end();
   });
 });
 
