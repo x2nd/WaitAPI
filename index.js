@@ -52,9 +52,9 @@ app.get('/api/result', async(req, res) => {
   request.get({
     uri: url,
     qs: req.query
-  }, (err, res, data) => {
-    console.log('get statusCode: ' + res.statusCode);
-    res.writeHead(res.statusCode, { 'Content-Type': 'application/json' });
+  }, (err, res1, data) => {
+    console.log('get statusCode: ' + res1.statusCode);
+    res.writeHead(res1.statusCode, { 'Content-Type': 'application/json' });
     res.write(data);
     res.end();
   });
